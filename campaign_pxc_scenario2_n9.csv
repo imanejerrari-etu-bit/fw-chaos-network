@@ -1,0 +1,10 @@
+﻿trial,pair,pod_a,pod_b,witness,cluster_stayed_healthy,write_a_ok,write_b_ok
+1,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,True,True,True
+2,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,True,True,True
+3,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,True,True,True
+4,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,True,True,True
+5,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,True,True,True
+6,pxc-cluster-pxc-db-pxc-0-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,True,True,True
+7,pxc-cluster-pxc-db-pxc-1-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,True,True,True
+8,pxc-cluster-pxc-db-pxc-1-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,True,True,True
+9,pxc-cluster-pxc-db-pxc-1-pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-1,pxc-cluster-pxc-db-pxc-2,pxc-cluster-pxc-db-pxc-0,True,True,True
