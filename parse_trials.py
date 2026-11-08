@@ -53,6 +53,10 @@ def bca(x, seed):
     r = stats.bootstrap((x,), np.mean, n_resamples=10000, confidence_level=0.95, method="BCa", random_state=seed)
     return r.confidence_interval.low, r.confidence_interval.high
 
+def max_gap_s(starts):
+    st = sorted(starts)
+    return max((b - a) / 1000 for a, b in zip(st, st[1:])) if len(st) > 1 else float("nan")
+
 def restart_flag(meta):
     b, a = meta.get("restarts_before"), meta.get("restarts_after")
     if not isinstance(b, dict) or not isinstance(a, dict): return None
@@ -116,6 +120,8 @@ def parse_pxc(d, meta):
         mysqld_shutdown_log_s=(shutdown - tp) / 1000 if shutdown else np.nan, mysqld_shutdown_in_log=int(shutdown is not None),
         rejoin_poll_s=(poll_synced - th0) / 1000 if poll_synced else np.nan,
         transfer_type=ttype, transfer_lines=" || ".join((sst or ist)[:3]), restart_in_trial=restart_flag(meta),
+        clock_offset_ms=meta.get("clock_offset_ms"), max_writer_gap_s=max_gap_s([x["s"] for x in w]),
+        suspect_sleep=int(max_gap_s([x["s"] for x in w]) > 10),
         present_file=os.path.exists(os.path.join(d, "present.txt")), notes=meta.get("notes", ""))
 
 # ------------------------------------------------------------------ MongoDB
@@ -158,6 +164,8 @@ def parse_mongo(d, meta):
         last_ack_in_partition_s=(max(x["e"] for x in ack_during) - tp) / 1000 if ack_during else np.nan,
         lost_acked=len(acked - present), n_present_not_acked=len(present - acked),
         n_elections_after_partition=len(elections), restart_in_trial=restart_flag(meta),
+        clock_offset_ms=meta.get("clock_offset_ms"), max_writer_gap_s=max_gap_s([x["s"] for x in w]),
+        suspect_sleep=int(max_gap_s([x["s"] for x in w]) > 10),
         rto_first_s=(elections[0] - tp) / 1000 if elections else np.nan,
         rto_first_from_isolation_s=(elections[0] - tiso) / 1000 if elections else np.nan,
         rto_last_s=(elections[-1] - tp) / 1000 if elections else np.nan,

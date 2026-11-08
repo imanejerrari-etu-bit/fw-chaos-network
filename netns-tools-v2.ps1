@@ -35,6 +35,47 @@ function Write-LinesFile {
 
 function ConvertTo-Base64 { param([string]$Text) return [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Text)) }
 
+function Get-PodIp { param([string]$Namespace, [string]$Pod) return ((kubectl get pod $Pod -n $Namespace -o jsonpath='{.status.podIP}' 2>$null) -join "").Trim() }
+
+function Test-TrialDone {
+    param([string]$Campaign, [string]$Trial, [string]$System)
+    $d = Join-Path $script:V2Root ("{0}\t{1:D3}" -f $Campaign, [int]$Trial)
+    if (-not (Test-Path (Join-Path $d "meta.json"))) { return $false }
+    if ($System -eq "mongo" -and -not (Test-Path (Join-Path $d "present.txt"))) { return $false }
+    return $true
+}
+
+function Ensure-MongoClient {
+    # The client pod has no controller: after a Docker/WSL restart it stays in phase Failed (status Unknown). Recreate it.
+    param([string]$Namespace, [string]$ClientPod, [string]$Manifest = "cluster\mongo-client.yaml")
+    $ph = ((kubectl get pod $ClientPod -n $Namespace -o jsonpath='{.status.phase}' 2>$null) -join "")
+    $rd = ((kubectl get pod $ClientPod -n $Namespace -o jsonpath='{.status.containerStatuses[0].ready}' 2>$null) -join "")
+    if ($ph -eq "Running" -and $rd -eq "true") { return }
+    Write-Warning "$ClientPod is not ready (phase=$ph); recreating it from $Manifest"
+    kubectl delete pod $ClientPod -n $Namespace --force --grace-period=0 2>$null | Out-Null
+    kubectl apply -f $Manifest | Out-Null
+    for ($i = 0; $i -lt 60; $i++) {
+        Start-Sleep -Seconds 3
+        $rd = ((kubectl get pod $ClientPod -n $Namespace -o jsonpath='{.status.containerStatuses[0].ready}' 2>$null) -join "")
+        if ($rd -eq "true") { return }
+    }
+    throw "$ClientPod could not be recreated"
+}
+
+function Get-ClockOffsetMs {
+    # Offset (container clock minus host clock) in ms. After a host sleep, the WSL/Docker VM clock can drift; engine log
+    # timestamps then no longer match the host timestamps used for t_partition, t_heal...
+    param([string]$Namespace, [string]$Pod, [string]$Container = "")
+    $kargs = @("exec", $Pod, "-n", $Namespace)
+    if ($Container) { $kargs += @("-c", $Container) }
+    $kargs += @("--", "date", "+%s%3N")
+    $a = [int64]([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())
+    $r = (& kubectl @kargs 2>$null) -join ""
+    $b = [int64]([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())
+    if ($r -notmatch "^\d{13}$") { throw "cannot read the container clock" }
+    return [int64]$r - [int64](($a + $b) / 2)
+}
+
 function Get-RestartCounts {
     param([string]$Namespace, [string[]]$Pods)
     $o = [ordered]@{}
@@ -121,7 +162,7 @@ function Invoke-PxcTrialV2 {
         [Parameter(Mandatory=$true)][string]$IsolatedPod,
         [Parameter(Mandatory=$true)][string]$WitnessPod,
         [Parameter(Mandatory=$true)][string[]]$AllPods,
-        [Parameter(Mandatory=$true)][string[]]$TargetIps,
+        [string[]]$TargetIps = @(),
         [Parameter(Mandatory=$true)][string]$XtrabackupPass,
         [Parameter(Mandatory=$true)][int]$Trial,
         [string]$Campaign = "pxc_partition_v2",
@@ -131,6 +172,11 @@ function Invoke-PxcTrialV2 {
     $dir = New-TrialDir -Campaign $Campaign -Trial $Trial
     if (-not (Wait-PxcHealthy -Namespace $Namespace -Pods $AllPods -Pass $XtrabackupPass -UptimePod $IsolatedPod -MinUptimeSeconds 310)) { throw "PXC cluster not healthy at trial start (Synced, size 3, isolated pod running for at least 310 s)" }
     $tStart = Get-NowMs
+    # pod IPs can change after a Docker/WSL restart: always resolved at trial start (the parameter is ignored)
+    $TargetIps = @($AllPods | Where-Object { $_ -ne $IsolatedPod } | ForEach-Object { Get-PodIp -Namespace $Namespace -Pod $_ })
+    if ($TargetIps.Count -ne 2 -or @($TargetIps | Where-Object { -not $_ }).Count -gt 0) { throw "cannot resolve the IPs of the other PXC pods" }
+    $clockOffset = Get-ClockOffsetMs -Namespace $Namespace -Pod $IsolatedPod -Container "pxc"
+    if ([Math]::Abs($clockOffset) -gt 1000) { throw "clock offset between host and container is $clockOffset ms (after a sleep?): trial not run" }
     $rcBefore = Get-RestartCounts -Namespace $Namespace -Pods $AllPods
     $info = Get-PodNetnsInfo -Namespace $Namespace -PodName $IsolatedPod       # slow step, done before the timed section
     $addCmd = New-RuleCommand -Info $info -TargetIps $TargetIps -Op "A"
@@ -223,7 +269,7 @@ done
         system = "pxc"; campaign = $Campaign; trial = $Trial; t_start_ms = $tStart
         t_partition_ms = $tPartition; t_isolated_ms = $tIsolated; t_heal_start_ms = $tHealStart; t_heal_ms = $tHeal
         hold_s = $HoldSeconds; isolated_pod = $IsolatedPod; witness_pod = $WitnessPod; pods = $AllPods; target_ips = $TargetIps
-        restarts_before = $rcBefore; restarts_after = $rcAfter
+        restarts_before = $rcBefore; restarts_after = $rcAfter; clock_offset_ms = $clockOffset
     })
     Write-Host ("PXC trial {0} (hold {1} s) saved in {2}" -f $Trial, $HoldSeconds, $dir) -ForegroundColor Green
 }
@@ -235,7 +281,7 @@ function Invoke-PxcInterleavedV2 {
         [int]$N20 = 30, [int]$N30 = 10, [int]$Seed = 2026, [int]$StartTrial = 1,
         [Parameter(Mandatory=$true)][string]$Namespace, [Parameter(Mandatory=$true)][string]$IsolatedPod,
         [Parameter(Mandatory=$true)][string]$WitnessPod, [Parameter(Mandatory=$true)][string[]]$AllPods,
-        [Parameter(Mandatory=$true)][string[]]$TargetIps, [Parameter(Mandatory=$true)][string]$XtrabackupPass,
+        [string[]]$TargetIps = @(), [Parameter(Mandatory=$true)][string]$XtrabackupPass,
         [int]$SettleSeconds = 30, [switch]$ScheduleOnly
     )
     $list = @(); 1..$N20 | ForEach-Object { $list += 20 }; 1..$N30 | ForEach-Object { $list += 30 }
@@ -247,6 +293,7 @@ function Invoke-PxcInterleavedV2 {
     if ($ScheduleOnly) { Write-Host "Schedule written to $schedFile (no trial run). Commit it, then run again without -ScheduleOnly." -ForegroundColor Yellow; return }
     foreach ($row in (Import-Csv $schedFile)) {
         $camp = "pxc_hold{0}_v2" -f $row.hold_s
+        if (Test-TrialDone -Campaign $camp -Trial $row.trial -System "pxc") { Write-Host ("Trial {0}: already done, skipped" -f $row.trial); continue }
         try {
             Invoke-PxcTrialV2 -Namespace $Namespace -IsolatedPod $IsolatedPod -WitnessPod $WitnessPod -AllPods $AllPods `
                 -TargetIps $TargetIps -XtrabackupPass $XtrabackupPass -Trial ([int]$row.trial) -Campaign $camp -HoldSeconds ([int]$row.hold_s)
@@ -281,7 +328,7 @@ function Invoke-MongoTrialV2 {
         [Parameter(Mandatory=$true)][string]$ClientPod,
         [Parameter(Mandatory=$true)][string[]]$MemberHosts,
         [Parameter(Mandatory=$true)][string[]]$MemberPods,
-        [Parameter(Mandatory=$true)][string[]]$MemberIps,
+        [string[]]$MemberIps = @(),
         [Parameter(Mandatory=$true)][ValidateSet("w1","wmajority")][string]$WriteConcern,
         [Parameter(Mandatory=$true)][int]$Trial,
         [string]$Campaign = "",
@@ -289,8 +336,13 @@ function Invoke-MongoTrialV2 {
     )
     if (-not $Campaign) { $Campaign = "mongo_{0}_v2" -f $WriteConcern }
     $dir = New-TrialDir -Campaign $Campaign -Trial $Trial
+    Ensure-MongoClient -Namespace $Namespace -ClientPod $ClientPod
     Wait-ForStableReplicaSet -Namespace $Namespace -ClientPod $ClientPod -AnyMemberFqdn $MemberHosts[0] | Out-Null
     $tStart = Get-NowMs
+    $MemberIps = @($MemberPods | ForEach-Object { Get-PodIp -Namespace $Namespace -Pod $_ })      # IPs can change: resolved per trial
+    if (@($MemberIps | Where-Object { -not $_ }).Count -gt 0) { throw "cannot resolve the IPs of the MongoDB pods" }
+    $clockOffset = Get-ClockOffsetMs -Namespace $Namespace -Pod $ClientPod
+    if ([Math]::Abs($clockOffset) -gt 1000) { throw "clock offset between host and container is $clockOffset ms (after a sleep?): trial not run" }
     $rcBefore = Get-RestartCounts -Namespace $Namespace -Pods $MemberPods
 
     $pHost = Get-MongoPrimaryHost -Namespace $Namespace -ClientPod $ClientPod -MemberHosts $MemberHosts
@@ -375,7 +427,7 @@ while (Date.now() < endAt) {
         system = "mongo"; campaign = $Campaign; trial = $Trial; write_concern = $WriteConcern; t_start_ms = $tStart
         t_partition_ms = $tPartition; t_isolated_ms = $tIsolated; t_heal_start_ms = $tHealStart; t_heal_ms = $tHeal
         hold_s = $HoldSeconds; isolated_pod = $isolatedPod; primary_host = $pHost; pods = $MemberPods; target_ips = $targetIps
-        restarts_before = $rcBefore; restarts_after = (Get-RestartCounts -Namespace $Namespace -Pods $MemberPods)
+        restarts_before = $rcBefore; restarts_after = (Get-RestartCounts -Namespace $Namespace -Pods $MemberPods); clock_offset_ms = $clockOffset
     }
     Save-Meta -Dir $dir -Meta $metaObj
 
@@ -397,7 +449,7 @@ function Invoke-MongoInterleavedV2 {
         [int]$NMajority = 30, [int]$NW1 = 15, [int]$Seed = 2026, [int]$StartTrial = 1,
         [Parameter(Mandatory=$true)][string]$Namespace, [Parameter(Mandatory=$true)][string]$ClientPod,
         [Parameter(Mandatory=$true)][string[]]$MemberHosts, [Parameter(Mandatory=$true)][string[]]$MemberPods,
-        [Parameter(Mandatory=$true)][string[]]$MemberIps, [int]$SettleSeconds = 20, [switch]$ScheduleOnly
+        [string[]]$MemberIps = @(), [int]$SettleSeconds = 20, [switch]$ScheduleOnly
     )
     $list = @(); 1..$NMajority | ForEach-Object { $list += "wmajority" }; 1..$NW1 | ForEach-Object { $list += "w1" }
     $rng = New-Object System.Random($Seed)
@@ -407,6 +459,7 @@ function Invoke-MongoInterleavedV2 {
     if (-not (Test-Path $schedFile)) { $sched | Export-Csv -NoTypeInformation -Encoding utf8 $schedFile }
     if ($ScheduleOnly) { Write-Host "Schedule written to $schedFile (no trial run). Commit it, then run again without -ScheduleOnly." -ForegroundColor Yellow; return }
     foreach ($row in (Import-Csv $schedFile)) {
+        if (Test-TrialDone -Campaign ("mongo_{0}_v2" -f $row.write_concern) -Trial $row.trial -System "mongo") { Write-Host ("Trial {0}: already done, skipped" -f $row.trial); continue }
         try {
             Invoke-MongoTrialV2 -Namespace $Namespace -ClientPod $ClientPod -MemberHosts $MemberHosts -MemberPods $MemberPods `
                 -MemberIps $MemberIps -WriteConcern $row.write_concern -Trial ([int]$row.trial)

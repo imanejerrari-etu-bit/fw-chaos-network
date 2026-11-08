@@ -60,3 +60,13 @@ Additional hypotheses (stated before the data): H4: with a 20 s hold, no PXC pod
 Exclusions (added to the list above): trials in which the cluster was not healthy at the start, or the writer pre-check failed, are not run and are listed with their reason. Trials with a restart are not excluded: they are analysed and reported separately.
 
 Sample sizes after the amendment: PXC 30 trials at 20 s and 10 trials at 30 s; MongoDB 30 trials with `w:majority` and 15 with `w:1` (hold 25 s).
+
+---
+
+## Amendment 2 (after the second smoke test, before any campaign data)
+
+The Docker/WSL layer restarted several times during the preparation (all `kube-system` pods show 50 to 220 restarts in 37 days), which left the unmanaged `mongo-client` pod in phase `Failed` and can change pod IPs. The PXC crash loop of `pxc-0` (40 restarts) was a DNS failure at start (`lookup ... on 10.96.0.10:53: i/o timeout`, "Cluster name is invalid, please check DNS"), not the liveness probe. Kubernetes events also show liveness and readiness probe failures with `non-Primary` as the reported status, which supports the restart mechanism of Amendment 1.
+
+Changes (infrastructure only, no change to hypotheses, outcomes or sample sizes): pod IPs are resolved at the start of every trial; `mongo-client` is recreated if it is not ready; the interleaved campaigns skip trials that already have complete artefacts, so an interrupted campaign is resumed with the same schedule. A trial that failed before the partition (cluster not healthy, writer or client not working) is re-run in a later pass with the same trial number and arm; it is never replaced by a different arm. Trials interrupted by an infrastructure restart after the partition started are kept and reported (with `restart_in_trial`), and the restart count of the whole stack is reported in the paper.
+
+Addendum to Amendment 2 (sleep). The Windows system log shows that the host entered sleep several times (events 42 and 107, with system time changes) although the sleep timeouts were set to 0. Sleep restarts the Docker/WSL stack and can shift the clock of the Docker VM. Changes: the clock difference between the host and the container is measured at the start of every trial and saved as `clock_offset_ms`; a trial is not run if its absolute value exceeds 1000 ms. The parser reports `max_writer_gap_s` and flags `suspect_sleep` when two consecutive writes are more than 10 s apart. Flagged trials are reported, and are excluded from the primary analysis of timings only if the gap lies outside the partition window; this exclusion is decided on the gap, not on the outcome values.
