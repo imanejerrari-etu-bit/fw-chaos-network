@@ -1,0 +1,5 @@
+paper/
+smoke.zip
+__pycache__/
+*.pyc
+analysis_output.md.bak

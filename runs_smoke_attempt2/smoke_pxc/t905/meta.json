@@ -1,0 +1,20 @@
+﻿{
+    "system":  "pxc",
+    "campaign":  "smoke_pxc",
+    "trial":  905,
+    "t_start_ms":  1793960594710,
+    "t_partition_ms":  1793960605316,
+    "t_heal_ms":  1793960636253,
+    "hold_s":  25,
+    "isolated_pod":  "pxc-cluster-pxc-db-pxc-0",
+    "witness_pod":  "pxc-cluster-pxc-db-pxc-1",
+    "pods":  [
+                 "pxc-cluster-pxc-db-pxc-0",
+                 "pxc-cluster-pxc-db-pxc-1",
+                 "pxc-cluster-pxc-db-pxc-2"
+             ],
+    "target_ips":  [
+                       "10.244.3.6",
+                       "10.244.2.5"
+                   ]
+}

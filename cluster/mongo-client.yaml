@@ -1,0 +1,12 @@
+# Client pod used by netns-tools.ps1 (mongosh) in namespace mongodb-pi
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongo-client
+  namespace: mongodb-pi
+spec:
+  containers:
+    - name: mongosh
+      image: mongo:6.0
+      command: ["sleep", "infinity"]
+  restartPolicy: Never

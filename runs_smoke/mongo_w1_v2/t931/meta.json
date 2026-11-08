@@ -1,0 +1,34 @@
+﻿{
+    "system":  "mongo",
+    "campaign":  "mongo_w1_v2",
+    "trial":  931,
+    "write_concern":  "w1",
+    "t_start_ms":  1794124432959,
+    "t_partition_ms":  1794124448576,
+    "t_isolated_ms":  1794124448929,
+    "t_heal_start_ms":  1794124473938,
+    "t_heal_ms":  1794124474894,
+    "hold_s":  25,
+    "isolated_pod":  "mongodb-2",
+    "primary_host":  "mongodb-2.mongodb.mongodb-pi.svc.cluster.local:27017",
+    "pods":  [
+                 "mongodb-0",
+                 "mongodb-1",
+                 "mongodb-2"
+             ],
+    "target_ips":  [
+                       "10.244.3.3",
+                       "10.244.1.2"
+                   ],
+    "restarts_before":  {
+                            "mongodb-0":  "5",
+                            "mongodb-1":  "4",
+                            "mongodb-2":  "5"
+                        },
+    "restarts_after":  {
+                           "mongodb-0":  "5",
+                           "mongodb-1":  "4",
+                           "mongodb-2":  "5"
+                       },
+    "final_primary_host":  "mongodb-1.mongodb.mongodb-pi.svc.cluster.local:27017"
+}

@@ -1,0 +1,22 @@
+﻿{
+    "system":  "mongo",
+    "campaign":  "mongo_w1_v2",
+    "trial":  903,
+    "write_concern":  "w1",
+    "t_start_ms":  1793882630697,
+    "t_partition_ms":  1793882642081,
+    "t_heal_ms":  1793882672228,
+    "hold_s":  25,
+    "isolated_pod":  "mongodb-0",
+    "primary_host":  "mongodb-0.mongodb.mongodb-pi.svc.cluster.local:27017",
+    "final_primary_host":  null,
+    "pods":  [
+                 "mongodb-0",
+                 "mongodb-1",
+                 "mongodb-2"
+             ],
+    "target_ips":  [
+                       "10.244.1.4",
+                       "10.244.2.3"
+                   ]
+}
