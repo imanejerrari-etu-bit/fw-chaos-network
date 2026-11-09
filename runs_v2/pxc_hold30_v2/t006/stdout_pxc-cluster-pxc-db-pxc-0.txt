@@ -1,0 +1,224 @@
++ trap exit SIGTERM
++ SST_RETRY_COUNTER_FILE=/var/lib/mysql/sst_retry_count
++ SST_RETRY_LIMIT_REACHED_FILE=/var/lib/mysql/sst_retry_limit_reached
++ '[' m = - ']'
++ CFG=/etc/mysql/node.cnf
++ wantHelp=
++ for arg in "$@"
++ case "$arg" in
+++ mysqld -V
+++ awk '{print $3}'
+++ awk -F. '{print $1"."$2}'
++ MYSQL_VERSION=8.4
+++ mysqld -V
+++ awk '{print $3}'
+++ awk -F. '{print $3}'
+++ awk -F- '{print $1}'
++ MYSQL_PATCH_VERSION=8
++ vault_secret=/etc/mysql/vault-keyring-secret/keyring_vault.conf
++ '[' -f /etc/mysql/vault-keyring-secret/keyring_vault.conf ']'
++ '[' 8.4 == 8.0 ']'
++ [[ 8.4 =~ ^(8\.0|8\.4)$ ]]
++ sed -i '/\[mysqld\]/a gtid-mode=ON' /etc/mysql/node.cnf
++ sed -i '/\[mysqld\]/a enforce-gtid-consistency' /etc/mysql/node.cnf
++ sed -i '/\[mysqld\]/a innodb_buffer_pool_in_core_file=OFF' /etc/mysql/node.cnf
++ '[' 8.4 == 8.4 ']'
++ sed -i '/\[mysqld\]/a innodb_numa_interleave=OFF' /etc/mysql/node.cnf
++ sed -i '/\[mysqld\]/a wsrep_notify_cmd=/var/lib/mysql/wsrep_cmd_notify_handler.sh' /etc/mysql/node.cnf
++ grep -q '^progress=' /etc/mysql/node.cnf
++ sed -i 's|^progress=.*|progress=1|' /etc/mysql/node.cnf
++ grep -q '^\[sst\]' /etc/mysql/node.cnf
++ grep -q '^cpat=' /etc/mysql/node.cnf
++ sed '/^\[sst\]/a cpat=.*\\.pem$\\|.*init\\.ok$\\|.*galera\\.cache$\\|.*wsrep_recovery_verbose\\.log$\\|.*readiness-check\\.sh$\\|.*liveness-check\\.sh$\\|.*get-pxc-state$\\|.*sst_in_progress$\\|.*sleep-forever$\\|.*sst_retry_count$\\|.*sst_retry_limit_reached$\\|.*pmm-prerun\\.sh$\\|.*sst-xb-tmpdir$\\|.*\\.sst$\\|.*gvwstate\\.dat$\\|.*grastate\\.dat$\\|.*\\.err$\\|.*\\.log$\\|.*RPM_UPGRADE_MARKER$\\|.*RPM_UPGRADE_HISTORY$\\|.*pxc-entrypoint\\.sh$\\|.*unsafe-bootstrap\\.sh$\\|.*pxc-configure-pxc\\.sh\\|.*peer-list$\\|.*auth_plugin$\\|.*version_info$\\|.*mysql-state-monitor$\\|.*mysql-state-monitor\\.log$\\|.*notify\\.sock$\\|.*mysql\\.state$\\|.*wsrep_cmd_notify_handler\\.sh$\\|.*core\\..*\\|.*mysqld\\.my$\\|.*component_keyring_vault\\.cnf$\\|.*vault\\.cnf$' /etc/mysql/node.cnf
++ [[ 8.4 == \8\.\0 ]]
++ [[ 8.4 == \8\.\4 ]]
++ grep -q '^skip_replica_start=ON' /etc/mysql/node.cnf
++ sed -i '/\[mysqld\]/a skip_replica_start=ON' /etc/mysql/node.cnf
++ auth_plugin=caching_sha2_password
++ [[ -f /var/lib/mysql/auth_plugin ]]
+++ cat /var/lib/mysql/auth_plugin
++ prev_auth_plugin=caching_sha2_password
++ [[ caching_sha2_password != \m\y\s\q\l\_\n\a\t\i\v\e\_\p\a\s\s\w\o\r\d ]]
++ [[ caching_sha2_password == \m\y\s\q\l\_\n\a\t\i\v\e\_\p\a\s\s\w\o\r\d ]]
++ [[ -z caching_sha2_password ]]
++ [[ 8.4 == \5\.\7 ]]
++ echo caching_sha2_password
++ sed -i /default_authentication_plugin/d /etc/mysql/node.cnf
++ [[ 8.4 == \8\.\0 ]]
++ [[ 8.4 == \8\.\4 ]]
++ sed -i '/\[mysqld\]/a authentication_policy=caching_sha2_password,,' /etc/mysql/node.cnf
++ file_env XTRABACKUP_PASSWORD xtrabackup xtrabackup
+Percona XtraDB Cluster: Finding peers
+2026/11/08 18:12:22 Peer finder enter
+2026/11/08 18:12:22 Determined Domain to be rpo-ycsb.svc.cluster.local
+2026/11/08 18:12:22 Peer list updated
+was []
+now [10-244-1-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local 10-244-2-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local 10-244-3-2.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local]
+2026/11/08 18:12:22 execing: /var/lib/mysql/pxc-configure-pxc.sh with stdin: 10-244-1-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+10-244-2-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+10-244-3-2.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+2026/11/08 18:12:23 ++ hostname -I
+++ awk ' { print $1 } '
++ NODE_IP=10.244.1.3
+++ hostname -f
+++ cut -d. -f2
++ CLUSTER_NAME=pxc-cluster-pxc-db-pxc
++ SERVER_NUM=0
++ SERVER_ID=52571700
+++ hostname -f
++ NODE_NAME=pxc-cluster-pxc-db-pxc-0.pxc-cluster-pxc-db-pxc.rpo-ycsb.svc.cluster.local
++ NODE_PORT=3306
++ read -ra LINE
++ echo 'read line 10-244-1-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local'
+read line 10-244-1-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ getent hosts 10-244-1-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ awk '{ print $1 }'
++ LINE_IP=10.244.1.3
++ '[' 10.244.1.3 '!=' 10.244.1.3 ']'
++ read -ra LINE
++ echo 'read line 10-244-2-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local'
+read line 10-244-2-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ getent hosts 10-244-2-3.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ awk '{ print $1 }'
++ LINE_IP=10.244.2.3
++ '[' 10.244.2.3 '!=' 10.244.1.3 ']'
+++ mysql_root_exec 10.244.2.3 'select @@hostname'
+++ local server=10.244.2.3
+++ local 'query=select @@hostname'
++ LINE_HOST=pxc-cluster-pxc-db-pxc-2
++ '[' -n pxc-cluster-pxc-db-pxc-2 ']'
++ PEERS=("${PEERS[@]}" $LINE_HOST)
++ PEERS_FULL=("${PEERS_FULL[@]}" "$LINE_HOST.$CLUSTER_NAME")
++ read -ra LINE
++ echo 'read line 10-244-3-2.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local'
+read line 10-244-3-2.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ getent hosts 10-244-3-2.pxc-cluster-pxc-db-pxc-unready.rpo-ycsb.svc.cluster.local
+++ awk '{ print $1 }'
++ LINE_IP=10.244.3.2
++ '[' 10.244.3.2 '!=' 10.244.1.3 ']'
+++ mysql_root_exec 10.244.3.2 'select @@hostname'
+++ local server=10.244.3.2
+++ local 'query=select @@hostname'
++ LINE_HOST=pxc-cluster-pxc-db-pxc-1
++ '[' -n pxc-cluster-pxc-db-pxc-1 ']'
++ PEERS=("${PEERS[@]}" $LINE_HOST)
++ PEERS_FULL=("${PEERS_FULL[@]}" "$LINE_HOST.$CLUSTER_NAME")
++ read -ra LINE
++ '[' 2 '!=' 0 ']'
+++ printf '%s\n' pxc-cluster-pxc-db-pxc-2 pxc-cluster-pxc-db-pxc-1 pxc-cluster-pxc-db-pxc-0
+++ sort --version-sort
+++ uniq
+++ grep -v -- '-0$'
+++ sed '$d'
+++ tr '\n' ,
+++ sed 's/^,$//'
++ DONOR_ADDRESS=pxc-cluster-pxc-db-pxc-1,
++ '[' 2 '!=' 0 ']'
+++ printf '%s\n' pxc-cluster-pxc-db-pxc-2.pxc-cluster-pxc-db-pxc pxc-cluster-pxc-db-pxc-1.pxc-cluster-pxc-db-pxc
+++ sort --version-sort
+++ tr '\n' ,
+++ sed 's/,$//'
++ WSREP_CLUSTER_ADDRESS=pxc-cluster-pxc-db-pxc-1.pxc-cluster-pxc-db-pxc,pxc-cluster-pxc-db-pxc-2.pxc-cluster-pxc-db-pxc
++ CFG=/etc/mysql/node.cnf
+++ mysqld -V
+++ awk '{print $3}'
+++ awk -F. '{print $1"."$2}'
++ MYSQL_VERSION=8.4
++ [[ 8.4 =~ ^(8\.0|8\.4)$ ]]
++ grep -E -q '^[#]?admin-address' /etc/mysql/node.cnf
++ sed '/^\[mysqld\]/a admin-address=\n' /etc/mysql/node.cnf
++ grep -E -q '^[#]?log_error_suppression_list' /etc/mysql/node.cnf
++ sed '/^\[mysqld\]/a log_error_suppression_list="MY-010055"\n' /etc/mysql/node.cnf
++ '[' yes == yes ']'
++ grep -E -q '^[#]?log-error' /etc/mysql/node.cnf
++ sed '/^\[mysqld\]/a log-error=/var/lib/mysql/mysqld-error.log\n' /etc/mysql/node.cnf
++ grep -E -q '^[#]?wsrep_sst_donor' /etc/mysql/node.cnf
++ sed '/^\[mysqld\]/a wsrep_sst_donor=\n' /etc/mysql/node.cnf
++ grep -E -q '^[#]?wsrep_node_incoming_address' /etc/mysql/node.cnf
++ grep -E -q '^[#]?wsrep_provider_options' /etc/mysql/node.cnf
++ sed '/^\[mysqld\]/a wsrep_provider_options="pc.weight=10"\n' /etc/mysql/node.cnf
++ sed -r 's|^[#]?server_id=.*$|server_id=52571700|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?coredumper$|coredumper|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?wsrep_node_address=.*$|wsrep_node_address=10.244.1.3|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?wsrep_cluster_name=.*$|wsrep_cluster_name=pxc-cluster-pxc-db-pxc|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?wsrep_sst_donor=.*$|wsrep_sst_donor=pxc-cluster-pxc-db-pxc-1,|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?wsrep_cluster_address=.*$|wsrep_cluster_address=gcomm://pxc-cluster-pxc-db-pxc-1.pxc-cluster-pxc-db-pxc,pxc-cluster-pxc-db-pxc-2.pxc-cluster-pxc-db-pxc|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?wsrep_node_incoming_address=.*$|wsrep_node_incoming_address=pxc-cluster-pxc-db-pxc-0.pxc-cluster-pxc-db-pxc.rpo-ycsb.svc.cluster.local:3306|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?admin-address=.*$|admin-address=10.244.1.3|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?extra_max_connections=.*$|extra_max_connections=100|' /etc/mysql/node.cnf
++ sed -r 's|^[#]?extra_port=.*$|extra_port=33062|' /etc/mysql/node.cnf
++ CA=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
++ '[' -f /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt ']'
++ SSL_DIR=/etc/mysql/ssl
++ '[' -f /etc/mysql/ssl/ca.crt ']'
++ CA=/etc/mysql/ssl/ca.crt
++ SSL_INTERNAL_DIR=/etc/mysql/ssl-internal
++ '[' -f /etc/mysql/ssl-internal/ca.crt ']'
++ CA=/etc/mysql/ssl-internal/ca.crt
++ KEY=/etc/mysql/ssl/tls.key
++ CERT=/etc/mysql/ssl/tls.crt
++ '[' -f /etc/mysql/ssl-internal/tls.key -a -f /etc/mysql/ssl-internal/tls.crt ']'
++ KEY=/etc/mysql/ssl-internal/tls.key
++ CERT=/etc/mysql/ssl-internal/tls.crt
++ '[' -f /etc/mysql/ssl-internal/ca.crt -a -f /etc/mysql/ssl-internal/tls.key -a -f /etc/mysql/ssl-internal/tls.crt ']'
++ sed '/^\[mysqld\]/a pxc-encrypt-cluster-traffic=ON\nssl-ca=/etc/mysql/ssl-internal/ca.crt\nssl-key=/etc/mysql/ssl-internal/tls.key\nssl-cert=/etc/mysql/ssl-internal/tls.crt' /etc/mysql/node.cnf
+2026/11/08 18:12:24 Peer finder exiting
+Cluster address set to: pxc-cluster-pxc-db-pxc-1.pxc-cluster-pxc-db-pxc,pxc-cluster-pxc-db-pxc-2.pxc-cluster-pxc-db-pxc
+8.4.8-8.1
+[mysqld]
+pxc-encrypt-cluster-traffic=ON
+ssl-ca=/etc/mysql/ssl-internal/ca.crt
+ssl-key=/etc/mysql/ssl-internal/tls.key
+ssl-cert=/etc/mysql/ssl-internal/tls.crt
+wsrep_provider_options="pc.weight=10"
+
+wsrep_sst_donor=pxc-cluster-pxc-db-pxc-1,
+
+log-error=/var/lib/mysql/mysqld-error.log
+
+log_error_suppression_list="MY-010055"
+
+admin-address=10.244.1.3
+
+authentication_policy=caching_sha2_password,,
+skip_replica_start=ON
+wsrep_notify_cmd=/var/lib/mysql/wsrep_cmd_notify_handler.sh
+innodb_numa_interleave=OFF
+innodb_buffer_pool_in_core_file=OFF
+enforce-gtid-consistency
+gtid-mode=ON
+
+mysql-native-password=ON
+require_secure_transport=OFF
+datadir=/var/lib/mysql
+socket=/tmp/mysql.sock
+
+coredumper
+server_id=52571700
+binlog_format=ROW
+default_storage_engine=InnoDB
+
+innodb_flush_log_at_trx_commit  = 2
+innodb_flush_method             = O_DIRECT
+innodb_file_per_table           = 1
+innodb_autoinc_lock_mode=2
+
+bind_address = 0.0.0.0
+
+wsrep_slave_threads=2
+wsrep_cluster_address=gcomm://pxc-cluster-pxc-db-pxc-1.pxc-cluster-pxc-db-pxc,pxc-cluster-pxc-db-pxc-2.pxc-cluster-pxc-db-pxc
+wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
+
+wsrep_cluster_name=pxc-cluster-pxc-db-pxc
+wsrep_node_address=10.244.1.3
+wsrep_node_incoming_address=pxc-cluster-pxc-db-pxc-0.pxc-cluster-pxc-db-pxc.rpo-ycsb.svc.cluster.local:3306
+
+wsrep_sst_method=xtrabackup-v2
+
+[client]
+socket=/tmp/mysql.sock
+
+[sst]
+cpat=.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*wsrep_recovery_verbose\.log$\|.*readiness-check\.sh$\|.*liveness-check\.sh$\|.*get-pxc-state$\|.*sst_in_progress$\|.*sleep-forever$\|.*sst_retry_count$\|.*sst_retry_limit_reached$\|.*pmm-prerun\.sh$\|.*sst-xb-tmpdir$\|.*\.sst$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*pxc-entrypoint\.sh$\|.*unsafe-bootstrap\.sh$\|.*pxc-configure-pxc\.sh\|.*peer-list$\|.*auth_plugin$\|.*version_info$\|.*mysql-state-monitor$\|.*mysql-state-monitor\.log$\|.*notify\.sock$\|.*mysql\.state$\|.*wsrep_cmd_notify_handler\.sh$\|.*core\..*\|.*mysqld\.my$\|.*component_keyring_vault\.cnf$\|.*vault\.cnf$
+progress=1
+

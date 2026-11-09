@@ -1,0 +1,1 @@
+[{"n":"mongodb-0.mongodb.mongodb-pi.svc.cluster.local:27017","s":"SECONDARY"},{"n":"mongodb-1.mongodb.mongodb-pi.svc.cluster.local:27017","s":"PRIMARY"},{"n":"mongodb-2.mongodb.mongodb-pi.svc.cluster.local:27017","s":"SECONDARY"}]
