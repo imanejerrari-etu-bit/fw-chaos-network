@@ -13,7 +13,7 @@ param(
     [switch]$Smoke
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 . .\netns-tools-v2.ps1
 
 $all      = @(0..2 | ForEach-Object { "$Cr-pxc-$_" })
