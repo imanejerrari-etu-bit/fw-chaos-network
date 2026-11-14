@@ -1,0 +1,94 @@
+1794645197644,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645198275,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645199084,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645199573,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645200213,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645200716,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645201367,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645202085,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645202817,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645203249,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645204306,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645204975,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645205810,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645206283,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645207506,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645207991,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645208842,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645209240,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645209931,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645210508,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645211215,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645211866,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645212487,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645212953,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645213593,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645214104,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645214787,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645215160,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645216046,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645216576,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645217432,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645217927,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645218605,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645219059,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645219736,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645220180,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645220973,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645221584,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645222295,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645222752,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645223437,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645223862,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645224678,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645225084,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645225877,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645226420,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645227194,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645227709,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645228376,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645228863,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645229578,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645230205,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645230843,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645231461,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645232168,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645232665,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645233402,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645233925,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645234585,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645234994,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645235735,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645236173,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645236840,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645237405,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645238081,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645238551,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645239243,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645239622,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645240347,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645240770,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645241467,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 1 wsrep_cluster_status non-Primary wsrep_local_state_comment Initialized wsrep_ready OFF
+1794645241834,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645242527,pxc-cluster-pxc-db-pxc-0,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645243110,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 3 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645243921,pxc-cluster-pxc-db-pxc-0,
+1794645246448,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645247170,pxc-cluster-pxc-db-pxc-0,
+1794645247517,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645248143,pxc-cluster-pxc-db-pxc-0,
+1794645248903,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645249523,pxc-cluster-pxc-db-pxc-0,
+1794645249990,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645250661,pxc-cluster-pxc-db-pxc-0,
+1794645251287,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645252258,pxc-cluster-pxc-db-pxc-0,
+1794645252603,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645253166,pxc-cluster-pxc-db-pxc-0,
+1794645253464,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645254019,pxc-cluster-pxc-db-pxc-0,
+1794645254153,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645254722,pxc-cluster-pxc-db-pxc-0,
+1794645254982,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON
+1794645255534,pxc-cluster-pxc-db-pxc-0,
+1794645255818,pxc-cluster-pxc-db-pxc-1,wsrep_cluster_size 2 wsrep_cluster_status Primary wsrep_local_state_comment Synced wsrep_ready ON

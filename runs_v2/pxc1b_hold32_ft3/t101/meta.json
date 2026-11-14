@@ -1,0 +1,33 @@
+﻿{
+    "system":  "pxc",
+    "campaign":  "pxc1b_hold32_ft3",
+    "trial":  101,
+    "t_start_ms":  1794645192545,
+    "t_partition_ms":  1794645206993,
+    "t_isolated_ms":  1794645207748,
+    "t_heal_start_ms":  1794645239755,
+    "t_heal_ms":  1794645240114,
+    "hold_s":  32,
+    "isolated_pod":  "pxc-cluster-pxc-db-pxc-0",
+    "witness_pod":  "pxc-cluster-pxc-db-pxc-1",
+    "pods":  [
+                 "pxc-cluster-pxc-db-pxc-0",
+                 "pxc-cluster-pxc-db-pxc-1",
+                 "pxc-cluster-pxc-db-pxc-2"
+             ],
+    "target_ips":  [
+                       "10.244.3.2",
+                       "10.244.2.3"
+                   ],
+    "restarts_before":  {
+                            "pxc-cluster-pxc-db-pxc-0":  "4,4,43",
+                            "pxc-cluster-pxc-db-pxc-1":  "2,2,5",
+                            "pxc-cluster-pxc-db-pxc-2":  "2,2,6"
+                        },
+    "restarts_after":  {
+                           "pxc-cluster-pxc-db-pxc-0":  "4,4,44",
+                           "pxc-cluster-pxc-db-pxc-1":  "2,2,5",
+                           "pxc-cluster-pxc-db-pxc-2":  "2,2,6"
+                       },
+    "clock_offset_ms":  293
+}
