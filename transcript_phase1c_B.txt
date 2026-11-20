@@ -1,0 +1,1919 @@
+﻿**********************
+Début de la transcription Windows PowerShell
+Heure de début : 20261119204833
+Nom d'utilisateur : DESKTOP-09JN2ML\HP
+Utilisateur runAs :  DESKTOP-09JN2ML\HP
+Nom de la configuration : 
+Ordinateur : DESKTOP-09JN2ML (Microsoft Windows NT 10.0.26200.0)
+Application hôte : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ID de processus : 20888
+PSVersion: 5.1.26100.9818
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9818
+BuildVersion: 10.0.26100.9818
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcription démarrée, le fichier de sortie est .\transcript_phase1c_B.txt
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> .\run-phase1c.ps1 -Block B -SecretName pxc-cluster-pxc-db-secrets
+pxc-cluster-pxc-db-pxc-0 : failureThreshold = 3 (attendu pour le bloc B : 6)
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Erreur de terminaison () : « failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer. »
+>> Erreur de terminaison () : « failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer. »
+failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\run-phase1c.ps1:30 : 37
++ ... pectedFt) { throw "failureThreshold incorrect sur $p : ne rien lancer ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (failureThreshol...ne rien lancer.:String) [], RuntimeException
+    + FullyQualifiedErrorId : failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Get-Date -Format s
+2026-11-19T20:49:33
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> kubectl patch pxc pxc-cluster-pxc-db -n rpo-ycsb --type merge -p '{\"spec\":{\"pxc\":{\"livenessProbes\":{\"failureThreshold\":6}}}}'
+perconaxtradbcluster.pxc.percona.com/pxc-cluster-pxc-db patched
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> kubectl get pods -n rpo-ycsb -w
+NAME                                                        READY   STATUS        RESTARTS       AGE
+percona-xtradb-cluster-operator-95865c478-769gn             1/1     Running       58             14d
+pxc-cluster-pxc-db-pxc-0                                    3/3     Running       43 (26m ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    3/3     Running       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-2                                    3/3     Terminating   38 (12h ago)   4d23h
+xb-cron-pxc-cluster-pxc--fs-pvc-2026119101850-372f8-wcg7j   0/1     Completed     0              10d
+pxc-cluster-pxc-db-pxc-2                                    0/3     Terminating   38             4d23h
+pxc-cluster-pxc-db-pxc-2                                    0/3     Terminating   38             4d23h
+pxc-cluster-pxc-db-pxc-2                                    0/3     Terminating   38             4d23h
+pxc-cluster-pxc-db-pxc-2                                    0/3     Terminating   38             4d23h
+pxc-cluster-pxc-db-pxc-2                                    0/3     Pending       0              0s
+pxc-cluster-pxc-db-pxc-2                                    0/3     Pending       0              0s
+pxc-cluster-pxc-db-pxc-2                                    0/3     Init:0/1      0              0s
+pxc-cluster-pxc-db-pxc-2                                    0/3     Init:0/1      0              8s
+pxc-cluster-pxc-db-pxc-2                                    0/3     PodInitializing   0              39s
+pxc-cluster-pxc-db-pxc-2                                    2/3     Running           0              46s
+pxc-cluster-pxc-db-pxc-2                                    3/3     Running           0              92s
+pxc-cluster-pxc-db-pxc-1                                    3/3     Terminating       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    0/3     Terminating       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    0/3     Terminating       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    0/3     Terminating       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    0/3     Terminating       39 (12h ago)   4d23h
+pxc-cluster-pxc-db-pxc-1                                    0/3     Pending           0              0s
+pxc-cluster-pxc-db-pxc-1                                    0/3     Pending           0              0s
+pxc-cluster-pxc-db-pxc-1                                    0/3     Init:0/1          0              0s
+pxc-cluster-pxc-db-pxc-1                                    0/3     Init:0/1          0              8s
+pxc-cluster-pxc-db-pxc-1                                    0/3     PodInitializing   0              40s
+pxc-cluster-pxc-db-pxc-1                                    2/3     Running           0              48s
+pxc-cluster-pxc-db-pxc-1                                    3/3     Running           0              91s
+pxc-cluster-pxc-db-pxc-0                                    3/3     Terminating       43 (30m ago)   4d23h
+pxc-cluster-pxc-db-pxc-0                                    0/3     Terminating       43 (30m ago)   4d23h
+pxc-cluster-pxc-db-pxc-0                                    0/3     Terminating       43 (30m ago)   4d23h
+pxc-cluster-pxc-db-pxc-0                                    0/3     Terminating       43 (30m ago)   4d23h
+pxc-cluster-pxc-db-pxc-0                                    0/3     Terminating       43 (30m ago)   4d23h
+pxc-cluster-pxc-db-pxc-0                                    0/3     Pending           0              0s
+pxc-cluster-pxc-db-pxc-0                                    0/3     Pending           0              0s
+pxc-cluster-pxc-db-pxc-0                                    0/3     Init:0/1          0              0s
+pxc-cluster-pxc-db-pxc-0                                    0/3     Init:0/1          0              7s
+pxc-cluster-pxc-db-pxc-0                                    0/3     PodInitializing   0              40s
+pxc-cluster-pxc-db-pxc-0                                    2/3     Running           0              47s
+pxc-cluster-pxc-db-pxc-0                                    3/3     Running           0              90s
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Erreur de terminaison () : « Le pipeline a été arrêté. »
+>> Erreur de terminaison () : « Le pipeline a été arrêté. »
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> kubectl get pods -n rpo-ycsb -w
+NAME                                                        READY   STATUS      RESTARTS   AGE
+percona-xtradb-cluster-operator-95865c478-769gn             1/1     Running     58         14d
+pxc-cluster-pxc-db-pxc-0                                    3/3     Running     0          113s
+pxc-cluster-pxc-db-pxc-1                                    3/3     Running     0          3m39s
+pxc-cluster-pxc-db-pxc-2                                    3/3     Running     0          5m29s
+xb-cron-pxc-cluster-pxc--fs-pvc-2026119101850-372f8-wcg7j   0/1     Completed   0          10d
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Erreur de terminaison () : « Le pipeline a été arrêté. »
+>> Erreur de terminaison () : « Le pipeline a été arrêté. »
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> foreach ($i in 0..2) { "pxc-$i"; kubectl get pod pxc-cluster-pxc-db-pxc-$i -n rpo-ycsb -o jsonpath='{.spec.containers[?(@.name==\"pxc\")].livenessProbe.failureThreshold}'; "" }
+pxc-0
+6
+
+pxc-1
+6
+
+pxc-2
+6
+
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> [Console]::OutputEncoding = [Text.Encoding]::UTF8
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> .\run-phase1c.ps1 -Block B -SecretName pxc-cluster-pxc-db-secrets
+pxc-cluster-pxc-db-pxc-0 : failureThreshold = 6 (attendu pour le bloc B : 6)
+pxc-cluster-pxc-db-pxc-1 : failureThreshold = 6 (attendu pour le bloc B : 6)
+pxc-cluster-pxc-db-pxc-2 : failureThreshold = 6 (attendu pour le bloc B : 6)
+=== Essai 211 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T20:55:53
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 211 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t211
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 212 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:01:31
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 212 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t212
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 213 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:03:39
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 213 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t213
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 214 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:05:48
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 214 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t214
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 215 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:07:53
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 215 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t215
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 216 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:10:01
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 216 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t216
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 217 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:12:07
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 217 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t217
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 218 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:14:12
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 218 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t218
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 219 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:16:17
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 219 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t219
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 220 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:18:22
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 220 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t220
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 221 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:20:28
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 221 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t221
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 222 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:22:33
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 222 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t222
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 223 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:24:37
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 223 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t223
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 224 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:26:42
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 224 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t224
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+=== Essai 225 (bloc B, isolation 36 s, failureThreshold 6) 2026-11-19T21:28:47
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:140 : 20
++ ...      $raw = kubectl exec $p -n $Namespace -c pxc -- mysql -uxtrabacku ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:248 : 20
++ ...      $raw = kubectl exec $IsolatedPod -n $Namespace -c pxc -- mysql - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+kubectl : mysql: [Warning] Using a password on the command line interface can be insecure.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\netns-tools-v2.ps1:265 : 66
++ ... t") -Lines (kubectl exec $WitnessPod -n $Namespace -c pxc -- mysql -u ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+PXC trial 225 (hold 36 s) saved in C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\runs_v2\pxc1c_ft6_hold36_B\t225
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-0
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-1
+Toutes les regles iptables INPUT/OUTPUT videes pour pxc-cluster-pxc-db-pxc-2
+TerminÃ©.
