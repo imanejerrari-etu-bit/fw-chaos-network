@@ -10910,3 +10910,72 @@ True
 
 
 
+
+
+absent (ignorÃ©) : analyze_phase1b.py
+warning: in the working copy of 'analyze_phase1c.py', LF will be replaced by CRLF the next time Git touches it
+absent (ignorÃ©) : phase1b_pxc.csv
+absent (ignorÃ©) : phase1c_trials.csv
+warning: in the working copy of 'PLAN_PHASE1C.md', LF will be replaced by CRLF the next time Git touches it
+
+warning: in the working copy of 'run-phase1c.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'make_figures_v2.py', LF will be replaced by CRLF the next time Git touches it
+
+
+warning: in the working copy of 'independent_check.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'independent_mongo.csv', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'independent_pxc.csv', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'PHASE1_RESULTS.md', LF will be replaced by CRLF the next time Git touches it
+[main 1ff63ef] Phase 1b/1c: A2 raw data, final scripts and plan as used (Phase 1c outcome redefined after the test trial; committed after the campaign), corrected figures
+ 172 files changed, 195810 insertions(+), 7 deletions(-)
+ create mode 100644 PHASE1_RESULTS.md
+ create mode 100644 fig_mongo.pdf
+warning: in the working copy of 'DEVIATIONS_PHASE1B_1C.md', LF will be replaced by CRLF the next time Git touches it
+[main 5e83741] Deviations: chronology note for Phase 1c plan and scripts
+ 1 file changed, 6 insertions(+)
+git : fatal: unable to access 'https://github.com/imanejerrari-etu-bit/fw-chaos-network/': Failed to connect to github.com port 443 after 21642 ms: Could not connect to server
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\repo_followup.ps1:37 : 1
++ git push origin main 2>&1 | Select-Object -Last 3
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: unable t...nnect to server:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+TerminÃ©. Envoyez-moi repo_report2.txt.
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> .\check_repo_before_submission.ps1
+ECHEC tag prereg-phase1 sur GitHub
+ECHEC tag amendment2 sur GitHub
+ECHEC tag prereg-phase1b sur GitHub
+ECHEC tag prereg-phase1c sur GitHub
+ECHEC tag amendment3 sur GitHub
+OK    fichier suivi : AMENDMENT3.md
+OK    fichier suivi : DEVIATIONS_PHASE1B_1C.md
+OK    fichier suivi : PLAN_PHASE1C.md
+OK    fichier suivi : run-phase1c.ps1
+ECHEC fichier suivi : analyze_phase1b.py
+OK    fichier suivi : analyze_phase1c.py
+OK    fichier suivi : make_figures_v2.py
+OK    fichier suivi : independent_check.py
+OK    donnÃ©es brutes pxc1c_ft3_hold36_A1 : 10 essais suivis
+OK    donnÃ©es brutes pxc1c_ft6_hold36_B : 15 essais suivis
+OK    donnÃ©es brutes pxc1c_ft3_hold36_A2 : 10 essais suivis
+ECHEC aucune modification non committÃ©e sur les fichiers suivis
+ECHEC rien Ã  pousser (commits locaux = GitHub)
+
+Corrigez les points ECHEC (repo_followup.ps1 rÃ¨gle la plupart) puis relancez.
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> .\repo_followup.ps1
+== DonnÃ©es du bloc A2 prÃ©sentes ?
+True
+10
+
+
+
+
+
+
+
+
+
+
+
+
+
