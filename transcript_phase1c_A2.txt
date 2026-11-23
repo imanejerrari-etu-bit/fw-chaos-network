@@ -1,0 +1,36 @@
+﻿**********************
+Début de la transcription Windows PowerShell
+Heure de début : 20261120090949
+Nom d'utilisateur : DESKTOP-09JN2ML\HP
+Utilisateur runAs :  DESKTOP-09JN2ML\HP
+Nom de la configuration : 
+Ordinateur : DESKTOP-09JN2ML (Microsoft Windows NT 10.0.26200.0)
+Application hôte : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ID de processus : 20888
+PSVersion: 5.1.26100.9818
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9818
+BuildVersion: 10.0.26100.9818
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcription démarrée, le fichier de sortie est .\transcript_phase1c_A2.txt
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> .\run-phase1c.ps1 -Block A2 -SecretName pxc-cluster-pxc-db-secrets
+pxc-cluster-pxc-db-pxc-0 : failureThreshold = 6 (attendu pour le bloc A2 : 3)
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Erreur de terminaison () : « failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer. »
+>> Erreur de terminaison () : « failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer. »
+failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+Au caractère C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network\run-phase1c.ps1:30 : 37
++ ... pectedFt) { throw "failureThreshold incorrect sur $p : ne rien lancer ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (failureThreshol...ne rien lancer.:String) [], RuntimeException
+    + FullyQualifiedErrorId : failureThreshold incorrect sur pxc-cluster-pxc-db-pxc-0 : ne rien lancer.
+
+PS C:\Users\HP\Documents\fw-chaos-network_package\fw-chaos-network> Stop-Transcript
+**********************
+Fin de la transcription Windows PowerShell
+Heure de fin : 20261120090952
+**********************

@@ -26,13 +26,22 @@ l'isolation : déclaré comme limite. Ses lignes portent trial = essai + 9000 et
 n'interfèrent pas avec la vérification des écritures acquittées.
 
 ## Hypothèses (écrites avant les essais)
-- H9 (primaire) : le temps entre le début du heal et la première écriture de la sonde acquittée (T_serv) est plus long
+- H9 (primaire) : le temps entre le début du heal et la restauration stable du service (T_serv) est plus long
   avec ft=3 (A1+A2) qu'avec ft=6 (B), la différence des médianes étant supérieure à 5 s. Test de Mann-Whitney bilatéral,
   IC bootstrap 95 % de la différence des médianes (10 000 rééchantillonnages, graine 2026).
 - H10 : avec ft=6 et 36 s, 0 redémarrage sur 15 (borne haute exacte bilatérale 21,8 %) ; avec ft=3, au moins 18 redémarrages sur 20.
 - H11 (contrôle de dérive) : les médianes de T_serv de A1 et A2 diffèrent de moins de 5 s. Sinon, l'écart A/B est
   rapporté avec cette réserve.
 Si H9 est fausse (différence <= 5 s), le papier dira que le redémarrage a un coût faible dans ce banc.
+
+## Définition du critère principal (précisée après l'essai test, avant tout essai compté)
+T_serv = délai entre le début du heal et le début de la dernière série d'au moins 20 écritures de sonde acquittées
+d'affilée qui court jusqu'à la fin du journal (service stable). La "première écriture acquittée après le heal" a été
+écartée : l'essai test a montré qu'elle peut venir de l'ancien processus juste avant l'arrêt du conteneur
+(acquittement à +3,4 s, perte de connexion à +9,7 s, redémarrage ensuite). La sonde continue donc après la fin de
+l'essai jusqu'à 25 écritures acquittées d'affilée (maximum 300 s) ; un essai sans restauration stable est censuré
+et rapporté comme tel. T_première-écriture est conservé comme mesure secondaire.
+Les numéros d'essais test sont réservés (999) pour éviter les collisions de clés avec les essais comptés.
 
 ## Mesures secondaires (descriptives)
 Nombre d'écritures de la sonde en échec après le heal ; type de transfert d'état au redémarrage (IST ou SST) lu dans le

@@ -20,18 +20,25 @@ for i,t in enumerate(ts):
     after=[x for x in hp if x[0]>=th0]
     first=[x for x in after if ok(x)]
     fails=[x for x in after if not ok(x)]
+    # restauration stable : début de la dernière série d'écritures acquittées qui court jusqu'à la fin du journal (>= 20 écritures)
+    run=[]
+    for x in reversed(hp):
+        if ok(x): run.append(x)
+        else: break
+    stable=(run[-1][0]-th0)/1000 if len(run)>=20 and run[-1][0]>=th0 else np.nan
     b,a=rc(m); nb=None
     if i+1<len(ts) and metas[ts[i+1]][2]==blk:
         nb=rc(metas[ts[i+1]][1])[0]
         if nb<b: nb=None
     rows.append(dict(trial=t,block=blk,ft=int(re.search(r'_ft(\d)',d).group(1)),base_acks=len(base),
         restart=int(a>b or (nb is not None and nb>b)),
-        t_serv_s=(first[0][0]-th0)/1000 if first else np.nan,
+        t_first_ack_s=(first[0][0]-th0)/1000 if first else np.nan,
+        t_serv_s=stable,
         last_fail_after_heal_s=(max(x[1] for x in fails)-th0)/1000 if fails else 0.0,
         n_fail_after_heal=len(fails),clock_ms=m.get('clock_offset_ms')))
 P=pd.DataFrame(rows); P.to_csv('phase1c_trials.csv',index=False)
 V=P[(P.base_acks>0)&P.t_serv_s.notna()]
-print(f'trials {len(P)}, valid {len(V)} (baseline ack >=1 and a post-heal ack observed)')
+print(f'trials {len(P)}, valid {len(V)} (baseline ack >=1 and a stable restoration observed)')
 for blk,g in V.groupby('block'):
     k=int(g.restart.sum()); n=len(g)
     print(f'{blk}: ft={g.ft.iloc[0]} n={n} restarts {k}/{n} CI {cp(k,n)}  T_serv median {g.t_serv_s.median():.1f} (min {g.t_serv_s.min():.1f}, max {g.t_serv_s.max():.1f})')

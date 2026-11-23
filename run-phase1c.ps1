@@ -13,6 +13,7 @@ param(
     [switch]$Smoke
 )
 $ErrorActionPreference = "Continue"
+. .\netns-tools.ps1   # fonctions de base (Get-PodNetnsInfo, Clear-AllPartitionRules...) requises par la v2
 . .\netns-tools-v2.ps1
 
 $all = @(0..2 | ForEach-Object { "$Cr-pxc-$_" }); $isolated = $all[0]; $witness = $all[1]
@@ -35,12 +36,14 @@ if ($Smoke) { $rows = @($rows[0]); Write-Host "MODE SMOKE : un seul essai (non c
 
 foreach ($row in $rows) {
     $t = [int]$row.trial
+    if ($Smoke) { $t = 999 }   # numéro réservé aux essais test : évite toute collision de clés avec les vrais essais
     $camp = "pxc1c_ft{0}_hold{1}_{2}" -f $row.failureThreshold, $row.hold_s, $Block
     if ($Smoke) { $camp = "smoke1c_" + $camp }
     if (Test-TrialDone -Campaign $camp -Trial $t -System "pxc") { Write-Host "Essai $t : déjà fait, ignoré"; continue }
     Write-Host ("=== Essai {0} (bloc {1}, isolation {2} s, failureThreshold {3}) {4}" -f $t, $Block, $row.hold_s, $row.failureThreshold, (Get-Date -Format s)) -ForegroundColor Cyan
 
     $dir  = New-TrialDir -Campaign $camp -Trial $t
+    Remove-Item (Join-Path $dir "FAILED.txt") -ErrorAction SilentlyContinue   # reste d'une tentative précédente
     $stop = Join-Path $dir "stop_probe.flag"; Remove-Item $stop -ErrorAction SilentlyContinue
     $file = Join-Path $dir "hostprobe.log"; Remove-Item $file -ErrorAction SilentlyContinue
     $probe = Start-Job -ScriptBlock {
@@ -49,11 +52,14 @@ foreach ($row in $rows) {
         while (-not (Test-Path $stop)) {
             $i++; $seq = $base + $i
             $s = [int64]([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())
-            $out = kubectl exec $pod -n $ns -c pxc -- timeout 4 mysql -uxtrabackup -p"$pass" -N -e "INSERT INTO rpo_test_pxc.writes_v2 (seq,trial,node) VALUES ($seq,$trialCol,'hostprobe');" 2>&1
-            $rc = $LASTEXITCODE
+            $out = kubectl exec $pod -n $ns -c pxc -- timeout 4 mysql -uxtrabackup -p"$pass" -N -e "INSERT INTO rpo_test_pxc.writes_v2 (seq,trial,node) VALUES ($seq,$trialCol,'hostprobe'); SELECT ROW_COUNT();" 2>&1
             $e = [int64]([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())
-            $msg = (($out | Out-String) -replace 'mysql: \[Warning\][^\r\n]*', '' -replace '[,\r\n]+', ' ').Trim()
-            if ($msg.Length -gt 70) { $msg = $msg.Substring(0, 70) }
+            # texte brut (les ErrorRecord de PowerShell sont aplatis), sans l'avertissement mysql bénin
+            $lines = @($out | ForEach-Object { "$_".Trim() } | Where-Object { $_ -and $_ -notmatch 'Using a password on the command line' })
+            # écriture acquittée = mysql a répondu ROW_COUNT() = 1 (ne dépend pas de $LASTEXITCODE, fiable dans un job PowerShell 5.1)
+            $rc = if ($lines -contains '1') { 0 } else { 1 }
+            $msg = (($lines | Where-Object { $_ -ne '1' }) -join ' ') -replace '[,\r\n]+', ' '
+            if ($msg.Length -gt 90) { $msg = $msg.Substring(0, 90) }
             Add-Content -Path $file -Value "$s,$e,$seq,$rc,$msg"
             Start-Sleep -Milliseconds 500
         }
@@ -65,6 +71,13 @@ foreach ($row in $rows) {
         Write-Warning "Essai $t en échec : $($_.Exception.Message)"
         "failed: $($_.Exception.Message)" | Set-Content (Join-Path $dir "FAILED.txt")
     } finally {
+        # la sonde continue jusqu'à ce que le noeud serve de façon stable (25 écritures acquittées d'affilée), maximum 300 s
+        $t0 = Get-Date
+        while (((Get-Date) - $t0).TotalSeconds -lt 300) {
+            $tail = @(Get-Content $file -Tail 25 -ErrorAction SilentlyContinue)
+            if ($tail.Count -ge 25 -and (@($tail | Where-Object { $_ -match '^\d+,\d+,\d+,0,' }).Count -eq 25)) { break }
+            Start-Sleep -Seconds 3
+        }
         New-Item -ItemType File -Path $stop -Force | Out-Null
         Wait-Job $probe -Timeout 20 | Out-Null; Stop-Job $probe -ErrorAction SilentlyContinue; Remove-Job $probe -Force -ErrorAction SilentlyContinue
         foreach ($pod in $all) { Clear-AllPartitionRules -Namespace $Namespace -PodName $pod -ErrorAction SilentlyContinue | Out-Null }
