@@ -13,3 +13,9 @@ Phase 1c (tag prereg-phase1c)
 - H11 (dÃ©rive A1 / A2 infÃ©rieure Ã  5 s) n'est pas satisfaite : Ã©cart des mÃ©dianes 7,3 s (p = 0,038).
 - L'essai 230 (A2) a pris 587,5 s ; cause non Ã©tablie ; conservÃ©.
 - Les scripts ont Ã©tÃ© corrigÃ©s pendant la phase (chargement de netns-tools.ps1, dÃ©tection des Ã©critures acquittÃ©es de la sonde, suppression d'un FAILED.txt pÃ©rimÃ©) : infrastructure uniquement.
+
+## PrÃ©cision de chronologie (2026-11-23 12:15 UTC)
+- Le tag prereg-phase1c (crÃ©Ã© le 2026-11-17 13:46 UTC) contient le plan et les scripts d'origine, avec la premiÃ¨re dÃ©finition du critÃ¨re principal (premiÃ¨re Ã©criture acquittÃ©e aprÃ¨s le heal).
+- La dÃ©finition finale (restauration stable), les correctifs du script de lancement et le plan final ont Ã©tÃ© committÃ©s aprÃ¨s la campagne (commit du 2026-11-23 12:15 UTC) ; la redÃ©finition a eu lieu aprÃ¨s l'essai test et avant tout essai comptÃ©, mais elle n'est pas horodatÃ©e par git avant les essais.
+- Les donnÃ©es brutes du bloc B avaient Ã©tÃ© examinÃ©es de faÃ§on descriptive avant leur commit.
+- L'ancienne figure PXC (fig_pxc.pdf) avait les Ã©tiquettes 20 s et 30 s inversÃ©es ; corrigÃ©e dans ce commit.
